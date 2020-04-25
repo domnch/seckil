@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container" style="text-align:center;margin-top:50px;">
+<!--    <div th:text="${session.user.username}"></div>-->
+</div>
+</body>
+<script th:src="@{/js/jquery-3.1.1.js}"></script>
+<script th:src="@{/js/jquery.validate.min.js}"></script>
+<script th:src="@{/js/additional-methods.min.js}"></script>
+<script th:src="@{/js/messages_zh.min.js}"></script>
+<script th:src="@{/js/jquery.md5.js}"></script>
+<script type="text/javascript">
+    // $("#registerForm").validate({
+    //     debug: true
+    // });
+    // jQuery.validator.setDefaults({
+    //     debug:true,
+    //     success: "valid"
+    // });
+    //
+    // $("#registerForm").validate({
+    //     rules: {
+    //         password: "required",
+    //         repassword: {
+    //             equalTo: "#password"
+    //         }
+    //     }
+    // });
+    //
+    // $().ready(function () {
+    //
+    // });
+    $("#registerForm").validate({
+        rules: {
+            username: "required",
+            password: {
+                required: true,
+            }
+        },
+        submitHandler: function (form) {
+            debugger;
+            console.log($.md5("123456"));
+            const salt = "springboot";
+            const newPassword = $.md5($("#password").val() + salt);
+            $("#password").val(newPassword);
+            form.submit();
+        }
+    });
+</script>
+</html>
